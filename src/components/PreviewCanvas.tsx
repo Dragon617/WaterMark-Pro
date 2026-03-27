@@ -110,25 +110,72 @@ export function PreviewCanvas({ image, watermarks, onAddImages }: Props) {
       )}
 
       {/* Canvas area */}
-      <div className="flex-1 overflow-auto flex items-center justify-center p-6 checker-bg">
+      <div className="flex-1 overflow-auto flex items-center justify-center p-6">
         {!image ? (
-          <div className={`w-full max-w-lg mx-auto upload-zone h-72 gap-3 transition-all duration-300
-                          ${isDragOver ? 'drag-over' : ''}`}
+          <div 
+            className={`w-full max-w-xl mx-auto upload-zone-new h-80 relative overflow-hidden group
+                            ${isDragOver ? 'drag-over' : ''}`}
                onClick={() => {
                  const input = document.querySelector<HTMLInputElement>('input[type="file"]');
                  if (input) input.click();
                }}>
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-100 to-primary-200 
-                            dark:from-primary-900/50 dark:to-primary-800/50
-                            flex items-center justify-center">
-              <svg width="32" height="32" fill="none" stroke="#3b82f6" strokeWidth="1.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
-              </svg>
+            {/* 背景装饰 */}
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900" />
+            
+            {/* 装饰性圆形 */}
+            <div className="absolute -top-12 -right-12 w-40 h-40 bg-blue-100 dark:bg-blue-900/30 rounded-full blur-2xl" />
+            <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-purple-100 dark:bg-purple-900/30 rounded-full blur-2xl" />
+            
+            {/* 主内容 */}
+            <div className="relative z-10 flex flex-col items-center justify-center h-full gap-5">
+              {/* 上传图标容器 */}
+              <div className={`w-24 h-24 rounded-3xl bg-gradient-to-br from-blue-500 via-primary-500 to-purple-500 
+                              dark:from-blue-600 dark:via-primary-600 dark:to-purple-600
+                              flex items-center justify-center shadow-xl shadow-blue-500/25 dark:shadow-blue-500/20
+                              transform transition-all duration-300 ${isDragOver ? 'scale-110' : 'group-hover:scale-110'}`}>
+                <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                  </svg>
+                </div>
+              </div>
+              
+              {/* 文字说明 */}
+              <div className="text-center space-y-2">
+                <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">
+                  点击上传图片
+                </h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
+                  或将图片拖放到此处
+                </p>
+              </div>
+              
+              {/* 格式提示 */}
+              <div className="flex items-center gap-2 mt-2">
+                <span className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400 rounded-full">
+                  JPG
+                </span>
+                <span className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400 rounded-full">
+                  PNG
+                </span>
+                <span className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400 rounded-full">
+                  WEBP
+                </span>
+                <span className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400 rounded-full">
+                  GIF
+                </span>
+              </div>
+              
+              {/* 特色提示 */}
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                支持批量添加，最多 50 张图片
+              </p>
             </div>
-            <div className="text-center">
-              <p className="text-gray-700 dark:text-gray-300 font-medium">拖入图片或点击上传</p>
-              <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">支持 JPG、PNG、WEBP、GIF 等格式，可批量添加</p>
-            </div>
+            
+            {/* 悬停光效边框 */}
+            <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-blue-400/50 dark:group-hover:border-blue-500/50 transition-colors duration-300 pointer-events-none" />
           </div>
         ) : (
           <div 

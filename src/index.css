@@ -145,3 +145,21 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .upload-zone.drag-over {
   @apply border-primary-500 bg-primary-50 dark:bg-primary-900/20 scale-[1.02];
 }
+
+/* 新版上传区域 - 精美设计 */
+.upload-zone-new {
+  @apply border-2 border-dashed border-gray-200 dark:border-slate-600 rounded-2xl 
+         cursor-pointer transition-all duration-300;
+}
+
+.upload-zone-new:hover {
+  @apply border-blue-400 dark:border-blue-500 shadow-2xl shadow-blue-500/10;
+}
+
+.upload-zone-new.drag-over {
+  @apply border-blue-500 bg-blue-50 dark:bg-blue-900/20 scale-[1.02] shadow-2xl shadow-blue-500/20;
+}
+
+.upload-zone-new.drag-over .w-24 {
+  @apply scale-110;
+}
