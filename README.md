@@ -26,9 +26,9 @@
 
 ### 样式控制
 
-- **透明度** — 0–100% 任意调节
+- **透明度** — 0-100% 任意调节
 - **旋转** — -180° 至 180°
-- **缩放** — 0.1× 至 5×
+- **水印缩放** — 0.1× 至 5×
 - **水平 / 垂直翻转**
 - **混合模式** — source-over / multiply / screen / overlay / darken / lighten / color-burn / hard-light / soft-light
 
@@ -43,7 +43,7 @@
 - 一键处理全部 / 处理当前
 - 进度条实时追踪处理进度
 - 导出格式：**PNG**（无损）/ **JPEG**（小体积）/ **WebP**（现代格式）
-- 可调导出质量（JPEG/WebP）、输出尺寸倍率（0.5× / 1× / 2× / 3×）
+- 可调导出质量（JPEG/WebP）、输出尺寸倍率（0.5× / 1× / 1.5× / 2×）
 - 自定义输出文件名模板（`{name}` 占位符，自动保留原扩展名）
 
 ### 其他
@@ -65,7 +65,7 @@ deploy-prod.bat  # 生产模式构建并启动
 
 ### 方式二：手动启动
 
-**环境要求：** Node.js ≥ 18
+**环境要求：** Node.js >= 18
 
 ```bash
 # 克隆仓库
@@ -95,26 +95,26 @@ watermark-pro/
 ├── src/
 │   ├── assets/                   # 静态资源
 │   ├── components/
-│   │   ├── Header.tsx            # 顶部导航栏（主题切换按钮）
-│   │   ├── ImageList.tsx         # 左侧图片列表面板（上传/删除/清空）
-│   │   ├── PreviewCanvas.tsx     # 中央实时预览画布
+│   │   ├── Header.tsx            # 顶部导航栏（Logo / 主题切换 / 状态提示）
+│   │   ├── ImageList.tsx         # 左侧图片列表面板（上传/删除/清空/缩略图预览）
+│   │   ├── PreviewCanvas.tsx      # 中央实时预览画布（缩放控制/拖放上传/棋盘背景）
 │   │   ├── WatermarkLayerList.tsx # 水印图层管理（增删/显隐/排序/复制）
-│   │   ├── WatermarkPanel.tsx    # 水印参数编辑面板
+│   │   ├── WatermarkPanel.tsx    # 水印参数编辑面板（文字/图片样式配置）
 │   │   └── ExportPanel.tsx       # 导出配置与批量处理面板
 │   ├── App.tsx                   # 根组件 & 全局状态管理
 │   ├── App.css                   # 全局自定义样式
-│   ├── index.css                 # Tailwind 入口 & 全局 CSS 变量
+│   ├── index.css                 # Tailwind 入口 & 全局 CSS 变量 & 组件类
+│   ├── main.tsx                  # 应用入口
 │   ├── types.ts                  # TypeScript 类型定义
-│   ├── utils.ts                  # Canvas 水印渲染引擎 & 工具函数
-│   └── main.tsx                  # 应用入口
-├── public/                      # 静态公共资源
-├── index.html                   # HTML 入口
+│   └── utils.ts                  # Canvas 水印渲染引擎 & 工具函数
+├── public/                       # 静态公共资源
+├── index.html                    # HTML 入口
 ├── vite.config.ts               # Vite 构建配置
 ├── tailwind.config.js           # Tailwind CSS 配置
 ├── postcss.config.js            # PostCSS 配置
 ├── eslint.config.js             # ESLint 配置
 ├── deploy.bat                   # Windows 开发模式启动脚本
-├── deploy-prod.bat              # Windows 生产模式脚本
+├── deploy-prod.bat             # Windows 生产模式脚本
 └── package.json                 # 项目依赖
 ```
 
@@ -129,6 +129,8 @@ watermark-pro/
 | [Vite](https://vite.dev/) | 8.0 | 构建工具 |
 | [Tailwind CSS](https://tailwindcss.com/) | 3.4 | 样式框架 |
 | HTML5 Canvas API | — | 水印渲染引擎 |
+| ESLint | 9.0 | 代码质量 |
+| Autoprefixer | 10.4 | CSS 兼容性 |
 
 ---
 
@@ -157,7 +159,8 @@ watermark-pro/
 | `selectedImageId` | `string \| null` | 当前选中的预览图片 ID |
 | `activeTab` | `'watermark' \| 'export'` | 右侧面板当前 Tab |
 | `isProcessingAll` | `boolean` | 是否正在批量处理 |
-| `processProgress` | `number` | 批量处理进度（0–100） |
+| `processProgress` | `number` | 批量处理进度（0-100） |
+| `theme` | `Theme` | 主题模式（light/dark/system） |
 
 ---
 
@@ -176,8 +179,8 @@ watermark-pro/
    → 选择格式（PNG/JPEG/WebP）
    → 调整质量、倍率、文件名模板
       ↓
-5. 点击「处理全部」→ 等待进度条完成
-   → 点击「下载全部」
+5. 点击「处理当前」或「批量处理全部」→ 等待进度条完成
+   → 点击「下载当前」或「下载全部」
 ```
 
 ---
