@@ -51,6 +51,7 @@
 - **亮色 / 暗色 / 跟随系统** 三种主题，自动记忆偏好
 - 实时预览，所见即所得
 - 完全本地处理，零数据上传
+- 底部版权栏，自动获取网络时间
 
 ---
 
@@ -58,9 +59,12 @@
 
 ### 方式一：Windows 一键脚本（推荐）
 
+双击运行 `打开项目.bat`，自动启动开发服务器并打开浏览器访问 http://localhost:5173
+
 ```bash
-deploy.bat        # 开发模式（热更新）
-deploy-prod.bat  # 生产模式构建并启动
+打开项目.bat    # 开发模式（热更新，自动打开浏览器）
+deploy.bat      # 开发模式（终端启动）
+deploy-prod.bat # 生产模式构建并启动
 ```
 
 ### 方式二：手动启动
@@ -69,8 +73,8 @@ deploy-prod.bat  # 生产模式构建并启动
 
 ```bash
 # 克隆仓库
-git clone https://github.com/Dragon617/WaterMark-Pro.git
-cd WaterMark-Pro
+git clone https://github.com/LongShaoSDK/watermark-pro.git
+cd watermark-pro
 
 # 安装依赖
 npm install
@@ -97,10 +101,11 @@ watermark-pro/
 │   ├── components/
 │   │   ├── Header.tsx            # 顶部导航栏（Logo / 主题切换 / 状态提示）
 │   │   ├── ImageList.tsx         # 左侧图片列表面板（上传/删除/清空/缩略图预览）
-│   │   ├── PreviewCanvas.tsx      # 中央实时预览画布（缩放控制/拖放上传/棋盘背景）
-│   │   ├── WatermarkLayerList.tsx # 水印图层管理（增删/显隐/排序/复制）
+│   │   ├── PreviewCanvas.tsx     # 中央实时预览画布（缩放控制/拖放上传/棋盘背景）
+│   │   ├── WatermarkLayerList.tsx# 水印图层管理（增删/显隐/排序/复制）
 │   │   ├── WatermarkPanel.tsx    # 水印参数编辑面板（文字/图片样式配置）
-│   │   └── ExportPanel.tsx       # 导出配置与批量处理面板
+│   │   ├── ExportPanel.tsx       # 导出配置与批量处理面板
+│   │   └── Footer.tsx           # 底部版权栏（含©/作者/网络时间）
 │   ├── App.tsx                   # 根组件 & 全局状态管理
 │   ├── App.css                   # 全局自定义样式
 │   ├── index.css                 # Tailwind 入口 & 全局 CSS 变量 & 组件类
@@ -113,8 +118,9 @@ watermark-pro/
 ├── tailwind.config.js           # Tailwind CSS 配置
 ├── postcss.config.js            # PostCSS 配置
 ├── eslint.config.js             # ESLint 配置
+├── 打开项目.bat                  # Windows 一键启动脚本（自动打开浏览器）
 ├── deploy.bat                   # Windows 开发模式启动脚本
-├── deploy-prod.bat             # Windows 生产模式脚本
+├── deploy-prod.bat              # Windows 生产模式脚本
 └── package.json                 # 项目依赖
 ```
 
@@ -128,7 +134,7 @@ watermark-pro/
 | [TypeScript](https://www.typescriptlang.org/) | 5.9 | 类型安全 |
 | [Vite](https://vite.dev/) | 8.0 | 构建工具 |
 | [Tailwind CSS](https://tailwindcss.com/) | 3.4 | 样式框架 |
-| HTML5 Canvas API | — | 水印渲染引擎 |
+| HTML5 Canvas API | - | 水印渲染引擎 |
 | ESLint | 9.0 | 代码质量 |
 | Autoprefixer | 10.4 | CSS 兼容性 |
 
@@ -198,4 +204,4 @@ npm run lint     # ESLint 代码检查
 
 ## License
 
-[MIT](LICENSE) © 2026 Dragon617
+[MIT](LICENSE) © 2026 LONGSHAO
