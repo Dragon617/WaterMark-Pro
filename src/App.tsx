@@ -10,6 +10,7 @@ import { ImageList } from './components/ImageList';
 import { ExportPanel } from './components/ExportPanel';
 import { Header } from './components/Header';
 import { WatermarkLayerList } from './components/WatermarkLayerList';
+import { Footer } from './components/Footer';
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>(() => {
@@ -287,6 +288,8 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
